@@ -14,5 +14,18 @@ if(file_exists($entity)) {
 
 abstract class Physical extends Entity
 {
-    public_
+    public protected(set) float $wear = 0.0{
+        set(float $value){
+            if($value < 0.0 || $value > 100.0){
+                throw new \OutOfRangeException(message: "Износ может принимать значения от 0 до 100");
+            }
+            this -> wear = $value;
+        }
+
+        public function service(): Physical{
+            $this -> wear = 0.0;
+            return $this;
+        }
+        abstract public function attachTo(Physical $physical): Physical;
+    }
 }

@@ -1,28 +1,28 @@
 <?php
 
 $dir = __DIR__;
-$entity = $dir . '/Entity.php';
-// Используем ваши реальные названия (с опечаткой "a")
-$Biological = $dir . '/Biologacal/Biologacal.php'; 
 
-if (file_exists($entity)) {
-    require_once $entity;
-    echo "Файл '" . $entity . "' подключен\n";
-} else {
-    echo "Файл Entity НЕ НАЙДЕН!\n";
-}
+echo "Подключаем Entity...\n";
+require_once $dir . '/Entity.php';
 
-if (file_exists($Biological)) {
-    require_once $Biological;
-    echo "Файл '" . $Biological . "' подключен\n";
-} else {
-    echo "Файл Biological НЕ НАЙДЕН!\n";
-}
+echo "Подключаем Biological...\n";
+require_once $dir . '/Biologacal/Biologacal.php';
 
-echo "\n"; 
+echo "Подключаем Cow...\n";
+require_once $dir . '/Biologacal/Animals/Cow.php';
 
-// Имя класса внутри файла тоже может быть с опечаткой! 
-// Если внутри Biologacal.php написано class Biologacal { ... }
-// то и здесь нужно писать: new Biologacal(...)
-$biological = new Biological(id: "1", name: "First Ivan");
-print_r($biological);
+echo "\nВсе файлы успешно подключены!\n\n";
+
+$cow = new Cow(id: "2", name: "Буренка", initialWeight: 450.5);
+print_r($cow);
+
+echo "\n--- Проверка изменения здоровья ---\n";
+
+// Создаем новую корову для теста
+$cowTest = new Cow(id: "3", name: "Зорька", initialWeight: 400.0);
+echo "Начальное здоровье: " . $cowTest->getHealth() . "\n"; 
+
+// Передаем большое отрицательное значение
+$cowTest->changeHealth(-150.0); 
+
+echo "Здоровье после вызова changeHealth(-150.0): " . $cowTest->getHealth() . "\n";
